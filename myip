@@ -1,0 +1,10 @@
+#!/bin/bash
+REQUIRED_PKG="dnsutils"
+PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
+if [ "" = "$PKG_OK" ]; then
+        echo "No $REQUIRED_PKG. Setting up $REQUIRED_PKG."
+        sudo apt-get --yes install $REQUIRED_PKG
+fi
+
+
+echo "your WAN IP is" $(dig +short myip.opendns.com @resolver1.opendns.com)
